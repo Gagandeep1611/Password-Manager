@@ -4,9 +4,11 @@ import com.project.passwordManager.repository.UsersRepository;
 import com.project.passwordManager.model.Users;
 import com.project.passwordManager.requests.RegisterRequest;
 import com.project.passwordManager.responses.RegisterResponse;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.security.SecureRandom;
 import java.util.InvalidPropertiesFormatException;
 import java.util.List;
 import java.util.Random;
@@ -20,6 +22,7 @@ public class UserService {
     @Autowired
     private EmailService emailService;
 
+    @Transactional
     public RegisterResponse register(RegisterRequest request){
         Users user=usersRepository.findByEmail(request.getEmail());
         if(user!=null && user.getIsVerified()){
@@ -47,8 +50,8 @@ public class UserService {
         }
 
     private String generateOTP(){
-        Random random=new Random();
-        int otpvalue= 100000+random.nextInt(999999);
+        SecureRandom random=new SecureRandom();
+        int otpvalue= 100000+random.nextInt(900000);
         return String.valueOf(otpvalue);
     }
 
@@ -60,6 +63,7 @@ public class UserService {
 
     }
 
+    @Transactional
     public void verify(String email, String otp){
         Users user=usersRepository.findByEmail(email);
 
@@ -75,4 +79,6 @@ public class UserService {
             throw new RuntimeException("Internal Server Error");
         }
     }
+
+
 }
