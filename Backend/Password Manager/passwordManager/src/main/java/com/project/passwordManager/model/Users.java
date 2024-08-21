@@ -25,6 +25,7 @@ public class Users {
 
     private String otp;
 
-    private Boolean isVerified;
+    @Column(columnDefinition = "boolean default false")
+    private Boolean isVerified= false;
 
 }

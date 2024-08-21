@@ -1,12 +1,13 @@
 package com.project.passwordManager.service;
 
-import com.project.passwordManager.Repository.UsersRepository;
+import com.project.passwordManager.repository.UsersRepository;
 import com.project.passwordManager.model.Users;
 import com.project.passwordManager.requests.RegisterRequest;
 import com.project.passwordManager.responses.RegisterResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.InvalidPropertiesFormatException;
 import java.util.List;
 import java.util.Random;
 
@@ -32,6 +33,7 @@ public class UserService {
         String otp=generateOTP();
         users.setOtp(otp);
         sendVerificationEmail(users.getEmail(),otp);
+        users.setIsVerified(false);
         usersRepository.save(users);
         RegisterResponse response=RegisterResponse.builder()
                 .email(users.getUsername())
@@ -56,5 +58,21 @@ public class UserService {
         emailService.sendEmail(email,subject,body);
 
 
+    }
+
+    public void verify(String email, String otp){
+        Users user=usersRepository.findByEmail(email);
+
+        if(user==null){
+            throw new RuntimeException("User not found");
+        }else if(user.getIsVerified()){
+            throw new RuntimeException("User is already verified.");
+        }else if(otp.equals(user.getOtp()) && !otp.equals("0")){
+            user.setIsVerified(true);
+            user.setOtp("0");
+            usersRepository.save(user);
+        }else{
+            throw new RuntimeException("Internal Server Error");
+        }
     }
 }
