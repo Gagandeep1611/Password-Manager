@@ -19,7 +19,7 @@ function RegisterUser() {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:8080/register', formData);
+      const response = await axios.post('http://localhost:8080/auth/register', formData);
       console.log('User registered successfully:', response.data);
       // Handle success, e.g., redirect or show a success message
     } catch (error) {
