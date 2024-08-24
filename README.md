@@ -6,6 +6,9 @@ Features to be added are multiple levels of authentications to secure your passw
 
 This project is not meant to be developed to be launched into open market and is purely being made to demonstrate my skill level in the tech stack mentioned below. 
 
+Features: 
+1. BCrypt Password Encryption.
+2. Email OTP Verification system.
 
 Tech Stack: Springboot, ReactJS, SQL. 
 
