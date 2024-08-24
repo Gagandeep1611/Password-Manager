@@ -6,12 +6,17 @@ import com.project.passwordManager.requests.RegisterRequest;
 import com.project.passwordManager.responses.RegisterResponse;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+
+
+import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
-import java.util.InvalidPropertiesFormatException;
 import java.util.List;
-import java.util.Random;
 
 @Service
 public class UserService {
@@ -22,6 +27,12 @@ public class UserService {
     @Autowired
     private EmailService emailService;
 
+    @Autowired
+    private BCryptPasswordEncoder encoder;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
     @Transactional
     public RegisterResponse register(RegisterRequest request){
         Users user=usersRepository.findByEmail(request.getEmail());
@@ -31,7 +42,7 @@ public class UserService {
         Users users= Users.builder()
                 .username(request.getUsername())
                 .email(request.getEmail())
-                .password(request.getPassword())
+                .password(encoder.encode(request.getPassword()))
                 .build();
         String otp=generateOTP();
         users.setOtp(otp);
@@ -80,5 +91,13 @@ public class UserService {
         }
     }
 
+    public String verifyLogin(Users user) {
+        Authentication authentication=authenticationManager
+                .authenticate(new UsernamePasswordAuthenticationToken(user.getEmail(),user.getPassword()));
 
+        if(authentication.isAuthenticated()){
+            return "Success";
+        }
+        return "Failure";
+    }
 }
