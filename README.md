@@ -1,14 +1,23 @@
-#Password Manager
+# Password Manager by Gagandeep Singh
 
-Objective: The objective of this project is to create a centralized application for all your password needs. Save all your passwords in this application 
-and make sure to keep your passwords different in each app. (Making your accounts more secure). 
-Features to be added are multiple levels of authentications to secure your passwords and make this application more secure than ever. 
+## Description
 
-This project is not meant to be developed to be launched into open market and is purely being made to demonstrate my skill level in the tech stack mentioned below. 
+**Password Manager** is a tool designed to securely store all your passwords in one place. It uses multiple layers of security to ensure that your passwords are encrypted and protected. Each user is provided with a personalized encryption key, which is crucial for accessing their stored passwords. If you lose this key, you won't be able to access your passwords, and neither can anyone else without the key.
 
-Features: 
-1. BCrypt Password Encryption.
-2. Email OTP Verification system.
+The main problem this tool addresses is the common practice of using the same password across multiple platforms, which puts users at risk of cyber attacks. With Password Manager, you can generate and store multiple, complex passwords without the need to remember them—just make sure to keep your encryption key secure.
 
-Tech Stack: Springboot, ReactJS, SQL. 
+## Installation
 
+To access Password Manager, simply visit our website at `{websiteUrl}` and create an account. Registration and verification are required to use the service.
+
+## Usage
+
+After verification, you will receive a **10-digit encryption key** via email. This key is the only thing you'll need to securely access your stored passwords. Future logins require your password and an OTP sent to your email. The encryption key will not be visible in your Password Manager account, so it's important to save it offline and delete the email containing the key.
+
+## Contributing
+
+This project is still in its infancy and is not open-source at this time.
+
+## License
+
+No specific license has been assigned to this project yet.
