@@ -1,0 +1,8 @@
+/* LoginUser.css */
+.custom-card {
+    border: 1px solid hsl(0, 0%, 23%); /* Subtle light gray border */
+    border-radius: 0.25rem; /* Bootstrap default border radius */
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1); /* Softer shadow */
+    padding: 1.5rem; /* Add some padding inside the card */
+  }
+  

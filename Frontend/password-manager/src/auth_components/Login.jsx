@@ -2,11 +2,10 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './LoginUser.css'; // Import the custom CSS file
 
-
-function RegisterUser() {
+function LoginUser() {
   const [formData, setFormData] = useState({
-    username: '',
     email: '',
     password: ''
   });
@@ -22,11 +21,11 @@ function RegisterUser() {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:8080/auth/register', formData);
-      console.log('User registered successfully:', response.data);
+      const response = await axios.post('http://localhost:8080/auth/login', formData);
+      console.log('Login successful:', response.data);
       // Handle success, e.g., redirect or show a success message
     } catch (error) {
-      console.error('There was an error registering the user!', error);
+      console.error('There was an error logging in!', error);
       // Handle error, e.g., show an error message
     }
   };
@@ -41,24 +40,12 @@ function RegisterUser() {
         </div>
         <div className="col-md-6 offset-md-1">
           <div className="text-center mb-4">
-            <h2>Skip The Hassle, Stay Secure</h2>
-            <p className="lead">Register Now</p>
+            <h2>Welcome Back!</h2>
+            <p className="lead">Login to Continue</p>
           </div>
           <div className="card custom-card">
             <div className="card-body">
               <form onSubmit={handleSubmit}>
-                <div className="form-group mb-3">
-                  <label htmlFor="username">Username:</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="username"
-                    name="username"
-                    value={formData.username}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
                 <div className="form-group mb-3">
                   <label htmlFor="email">Email:</label>
                   <input
@@ -83,8 +70,8 @@ function RegisterUser() {
                     required
                   />
                 </div>
-                <button type="submit" className="btn btn-dark w-100 mb-2">Register</button>
-                <Link to="/login" className="btn btn-link">Already have an account? Login</Link>
+                <button type="submit" className="btn btn-dark w-100 mb-2">Login</button>
+                <Link to="/register" className="btn btn-link">Don't have an account? Register</Link>
               </form>
             </div>
           </div>
@@ -94,4 +81,4 @@ function RegisterUser() {
   );
 }
 
-export default RegisterUser;
+export default LoginUser;
